@@ -1,3 +1,4 @@
+import 'package:arithmetic/ui/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -5,9 +6,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Arithmetic',
-      home: Scaffold(),
+      initialRoute: MainScreen.pathKey,
+      routes: {
+        MainScreen.pathKey: (context) => const MainScreen(),
+      },
     );
   }
 }
