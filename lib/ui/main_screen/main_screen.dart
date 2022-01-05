@@ -10,11 +10,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const YouButton(
-        child: Icon(Icons.arrow_forward),
-        width: 64,
-        height: 64,
-      ),
+      floatingActionButton: const YouButton(child: Icon(Icons.arrow_forward)),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,11 +75,7 @@ class _ButtonWithTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        YouButton(
-          child: buttonChild,
-          width: 80,
-          height: 80,
-        ),
+        YouButton(child: buttonChild),
         const SizedBox(height: 8),
         Text(
           title,

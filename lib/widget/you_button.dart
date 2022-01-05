@@ -12,8 +12,8 @@ class YouButton extends StatefulWidget {
   const YouButton({
     Key? key,
     required this.child,
-    required this.width,
-    required this.height,
+    this.width = 80,
+    this.height = 80,
     this.duration = const Duration(milliseconds: 150),
     this.reverseDuration = const Duration(milliseconds: 100),
     this.textStyle,
