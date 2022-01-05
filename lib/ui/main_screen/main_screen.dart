@@ -9,6 +9,12 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: const YouButton(
+        child: Icon(Icons.arrow_forward),
+        width: 64,
+        height: 64,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -18,20 +24,17 @@ class MainScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
-                YouButton(
-                  child: Text('1'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: '0-9',
+                  buttonChild: Text('1'),
                 ),
-                YouButton(
-                  child: Text('10'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: '10-99',
+                  buttonChild: Text('10'),
                 ),
-                YouButton(
-                  child: Text('100'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: '100-999',
+                  buttonChild: Text('100'),
                 ),
               ],
             ),
@@ -39,26 +42,54 @@ class MainScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
-                YouButton(
-                  child: Text('+'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: 'Сложение',
+                  buttonChild: Text('+'),
                 ),
-                YouButton(
-                  child: Text('-'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: 'Вычитание',
+                  buttonChild: Text('-'),
                 ),
-                YouButton(
-                  child: Text('*'),
-                  width: 80,
-                  height: 80,
+                _ButtonWithTitle(
+                  title: 'Умножение',
+                  buttonChild: Text('×'),
                 ),
               ],
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ButtonWithTitle extends StatelessWidget {
+  final String title;
+  final Widget buttonChild;
+
+  const _ButtonWithTitle({
+    Key? key,
+    required this.buttonChild,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        YouButton(
+          child: buttonChild,
+          width: 80,
+          height: 80,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
+      ],
     );
   }
 }
