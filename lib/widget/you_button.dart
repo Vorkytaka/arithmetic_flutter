@@ -65,10 +65,12 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
           clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTapDown: widget.onPressed != null ? (_) => animation.forward() : null,
-            onTap: widget.onPressed != null ? () {
-              animation.reverse();
-              widget.onPressed!.call();
-            } : null,
+            onTap: widget.onPressed != null
+                ? () {
+                    animation.reverse();
+                    widget.onPressed!.call();
+                  }
+                : null,
             onTapCancel: widget.onPressed != null ? () => animation.reverse() : null,
             onLongPress: widget.onLongPress,
             child: Container(
@@ -80,10 +82,13 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
           ),
         );
       },
-      child: DefaultTextStyle(
-        style: widget.textStyle ??
-            Theme.of(context).textTheme.headline5!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-        child: widget.child,
+      child: IconTheme(
+        data: Theme.of(context).primaryIconTheme,
+        child: DefaultTextStyle(
+          style: widget.textStyle ??
+              Theme.of(context).textTheme.headline5!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          child: widget.child,
+        ),
       ),
     );
   }

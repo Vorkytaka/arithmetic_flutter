@@ -18,10 +18,13 @@ class MainScreen extends StatelessWidget {
         closedElevation: 3,
         closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
         tappable: true,
-        closedBuilder: (context, _) => const SizedBox(
+        closedBuilder: (context, _) => SizedBox(
           width: 80,
           height: 80,
-          child: Icon(Icons.arrow_forward),
+          child: IconTheme(
+            data: Theme.of(context).primaryIconTheme,
+            child: const Icon(Icons.arrow_forward_ios),
+          ),
         ),
         openBuilder: (context, _) => const GameScreen(),
       ),

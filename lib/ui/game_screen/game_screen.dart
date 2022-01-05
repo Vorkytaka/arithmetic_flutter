@@ -140,7 +140,7 @@ class _Keyboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             YouButton(
-              child: const Text('<'),
+              child: Icon(Icons.backspace),
               onPressed: () => context.read<GameBloc>().deleteClicked(),
               onLongPress: () => context.read<GameBloc>().deleteLongClicked(),
             ),
