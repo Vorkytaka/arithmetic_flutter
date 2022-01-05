@@ -74,7 +74,7 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
       },
       child: DefaultTextStyle(
         style: widget.textStyle ??
-            Theme.of(context).textTheme.headline4!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            Theme.of(context).textTheme.headline5!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
         child: widget.child,
       ),
     );

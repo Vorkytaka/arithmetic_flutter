@@ -8,12 +8,55 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: YouButton(
-          child: Text('='),
-          width: 100,
-          height: 100,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                YouButton(
+                  child: Text('1'),
+                  width: 80,
+                  height: 80,
+                ),
+                YouButton(
+                  child: Text('10'),
+                  width: 80,
+                  height: 80,
+                ),
+                YouButton(
+                  child: Text('100'),
+                  width: 80,
+                  height: 80,
+                ),
+              ],
+            ),
+            const SizedBox(height: 48),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                YouButton(
+                  child: Text('+'),
+                  width: 80,
+                  height: 80,
+                ),
+                YouButton(
+                  child: Text('-'),
+                  width: 80,
+                  height: 80,
+                ),
+                YouButton(
+                  child: Text('*'),
+                  width: 80,
+                  height: 80,
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
