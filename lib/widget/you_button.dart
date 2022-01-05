@@ -10,10 +10,12 @@ class YouButton extends StatefulWidget {
   final TextStyle? textStyle;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
+  final Color? color;
 
   const YouButton({
     Key? key,
     required this.child,
+    this.color,
     this.width = 80,
     this.height = 80,
     this.duration = const Duration(milliseconds: 150),
@@ -60,7 +62,7 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
       animation: animation,
       builder: (context, child) {
         return Material(
-          color: Theme.of(context).primaryColor,
+          color: widget.color ?? Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(radius?.value ?? 50)),
           clipBehavior: Clip.hardEdge,
           child: InkWell(
