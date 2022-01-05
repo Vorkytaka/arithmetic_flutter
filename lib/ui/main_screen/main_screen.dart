@@ -1,3 +1,4 @@
+import 'package:arithmetic/ui/game_screen/game_screen.dart';
 import 'package:arithmetic/widget/you_button.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,12 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const YouButton(child: Icon(Icons.arrow_forward)),
+      floatingActionButton: YouButton(
+        child: const Icon(Icons.arrow_forward),
+        onPressed: () {
+          Navigator.of(context).pushNamed(GameScreen.pathKey);
+        },
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
