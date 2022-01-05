@@ -8,6 +8,7 @@ class YouButton extends StatefulWidget {
   final Duration duration;
   final Duration reverseDuration;
   final TextStyle? textStyle;
+  final VoidCallback? onPressed;
 
   const YouButton({
     Key? key,
@@ -17,6 +18,7 @@ class YouButton extends StatefulWidget {
     this.duration = const Duration(milliseconds: 150),
     this.reverseDuration = const Duration(milliseconds: 100),
     this.textStyle,
+    this.onPressed,
   })  : startRadius = width > height ? height : width,
         super(key: key);
 
@@ -60,9 +62,12 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
           borderRadius: BorderRadius.all(Radius.circular(radius?.value ?? 50)),
           clipBehavior: Clip.hardEdge,
           child: InkWell(
-            onTapDown: (_) => animation.forward(),
-            onTap: () => animation.reverse(),
-            onTapCancel: () => animation.reverse(),
+            onTapDown: widget.onPressed != null ? (_) => animation.forward() : null,
+            onTap: widget.onPressed != null ? () {
+              animation.reverse();
+              widget.onPressed!.call();
+            } : null,
+            onTapCancel: widget.onPressed != null ? () => animation.reverse() : null,
             child: Container(
               width: widget.width,
               height: widget.height,
