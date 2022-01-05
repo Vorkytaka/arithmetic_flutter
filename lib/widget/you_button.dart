@@ -9,6 +9,7 @@ class YouButton extends StatefulWidget {
   final Duration reverseDuration;
   final TextStyle? textStyle;
   final VoidCallback? onPressed;
+  final VoidCallback? onLongPress;
 
   const YouButton({
     Key? key,
@@ -19,6 +20,7 @@ class YouButton extends StatefulWidget {
     this.reverseDuration = const Duration(milliseconds: 100),
     this.textStyle,
     this.onPressed,
+    this.onLongPress,
   })  : startRadius = width > height ? height : width,
         super(key: key);
 
@@ -68,6 +70,7 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
               widget.onPressed!.call();
             } : null,
             onTapCancel: widget.onPressed != null ? () => animation.reverse() : null,
+            onLongPress: widget.onLongPress,
             child: Container(
               width: widget.width,
               height: widget.height,

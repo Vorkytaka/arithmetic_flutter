@@ -54,7 +54,7 @@ class _Header extends StatelessWidget {
           ),
           BlocBuilder<GameBloc, GameState>(
             builder: (context, state) => Text(
-              state.answer,
+              '${state.answer}',
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
@@ -79,9 +79,18 @@ class _Keyboard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            YouButton(child: Text('7')),
-            YouButton(child: Text('8')),
-            YouButton(child: Text('9')),
+            YouButton(
+              child: const Text('7'),
+              onPressed: () => context.read<GameBloc>().numberClicked(7),
+            ),
+            YouButton(
+              child: const Text('8'),
+              onPressed: () => context.read<GameBloc>().numberClicked(8),
+            ),
+            YouButton(
+              child: const Text('9'),
+              onPressed: () => context.read<GameBloc>().numberClicked(9),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -90,9 +99,18 @@ class _Keyboard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            YouButton(child: Text('4')),
-            YouButton(child: Text('5')),
-            YouButton(child: Text('6')),
+            YouButton(
+              child: const Text('4'),
+              onPressed: () => context.read<GameBloc>().numberClicked(4),
+            ),
+            YouButton(
+              child: const Text('5'),
+              onPressed: () => context.read<GameBloc>().numberClicked(5),
+            ),
+            YouButton(
+              child: const Text('6'),
+              onPressed: () => context.read<GameBloc>().numberClicked(6),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -101,9 +119,18 @@ class _Keyboard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            YouButton(child: Text('1')),
-            YouButton(child: Text('2')),
-            YouButton(child: Text('3')),
+            YouButton(
+              child: const Text('1'),
+              onPressed: () => context.read<GameBloc>().numberClicked(1),
+            ),
+            YouButton(
+              child: const Text('2'),
+              onPressed: () => context.read<GameBloc>().numberClicked(2),
+            ),
+            YouButton(
+              child: const Text('3'),
+              onPressed: () => context.read<GameBloc>().numberClicked(3),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -112,8 +139,15 @@ class _Keyboard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            YouButton(child: Text('<')),
-            YouButton(child: Text('0')),
+            YouButton(
+              child: const Text('<'),
+              onPressed: () => context.read<GameBloc>().deleteClicked(),
+              onLongPress: () => context.read<GameBloc>().deleteLongClicked(),
+            ),
+            YouButton(
+              child: const Text('0'),
+              onPressed: () => context.read<GameBloc>().numberClicked(0),
+            ),
             YouButton(child: Text('=')),
           ],
         ),
