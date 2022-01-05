@@ -1,5 +1,7 @@
+import 'package:arithmetic/ui/game_screen/bloc/game_bloc.dart';
 import 'package:arithmetic/widget/you_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameScreen extends StatelessWidget {
   static const String pathKey = '/game';
@@ -8,22 +10,26 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            Expanded(
-              flex: 1,
-              child: _Header(),
-            ),
-            Expanded(
-              flex: 2,
-              child: _Keyboard(),
-            ),
-          ],
+    return BlocProvider(
+      create: (context) => GameBloc(),
+      lazy: false,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              Expanded(
+                flex: 1,
+                child: _Header(),
+              ),
+              Expanded(
+                flex: 2,
+                child: _Keyboard(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -46,9 +52,11 @@ class _Header extends StatelessWidget {
             '99 + 100',
             style: Theme.of(context).textTheme.headline3,
           ),
-          Text(
-            '199',
-            style: Theme.of(context).textTheme.headline1,
+          BlocBuilder<GameBloc, GameState>(
+            builder: (context, state) => Text(
+              state.answer,
+              style: Theme.of(context).textTheme.headline1,
+            ),
           ),
         ],
       ),
