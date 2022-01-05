@@ -53,9 +53,11 @@ class _Header extends StatelessWidget {
             style: Theme.of(context).textTheme.headline3,
           ),
           BlocBuilder<GameBloc, GameState>(
-            builder: (context, state) => Text(
-              '${state.answer}',
-              style: Theme.of(context).textTheme.headline1,
+            builder: (context, state) => FittedBox(
+              child: Text(
+                '${state.answer}',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
           ),
         ],

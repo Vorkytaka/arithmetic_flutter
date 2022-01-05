@@ -5,9 +5,9 @@ class GameBloc extends Cubit<GameState> {
   GameBloc() : super(GameState.init());
 
   void numberClicked(int n) {
-    // todo: text size
-    if (state.answer.toString().length >= 6) return;
-    emit(state.copyWith(answer: state.answer * 10 + n));
+    final newAnswer = state.answer * 10 + n;
+    if (newAnswer >= 1000000) return;
+    emit(state.copyWith(answer: newAnswer));
   }
 
   void deleteClicked() {
