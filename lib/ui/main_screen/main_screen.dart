@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:arithmetic/ui/game_screen/game_screen.dart';
 import 'package:arithmetic/widget/you_button.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,18 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: YouButton(
-        child: const Icon(Icons.arrow_forward),
-        onPressed: () {
-          Navigator.of(context).pushNamed(GameScreen.pathKey);
-        },
+      floatingActionButton: OpenContainer(
+        transitionDuration: const Duration(milliseconds: 450),
+        closedColor: Theme.of(context).primaryColor,
+        closedElevation: 3,
+        closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+        tappable: true,
+        closedBuilder: (context, _) => const SizedBox(
+          width: 80,
+          height: 80,
+          child: Icon(Icons.arrow_forward),
+        ),
+        openBuilder: (context, _) => const GameScreen(),
       ),
       body: SafeArea(
         child: Column(
