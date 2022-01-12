@@ -76,4 +76,10 @@ class Expression {
     }
     return '$x $operationString $y';
   }
+
+  @override
+  bool operator ==(Object other) => other is Expression && x == other.x && y == other.y && operation == other.operation;
+
+  @override
+  int get hashCode => hashValues(x, y, operation);
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -54,7 +55,11 @@ class GameBloc extends Cubit<GameState> {
     final x = getNumber(numberModes, random);
     final y = getNumber(numberModes, random);
     final operation = operationModes[random.nextInt(operationModes.length)];
-    return Expression(x: x, y: y, operation: operation);
+    return Expression(
+      x: max(x, y),
+      y: min(x, y),
+      operation: operation,
+    );
   }
 
   static int getNumber(
@@ -88,15 +93,15 @@ class GameBloc extends Cubit<GameState> {
 
   void equalsPressed() {
     final status = state.answer == state.expression.answer ? GameStatus.correct : GameStatus.wrong;
-    final expression = getExpression(numberModes, operationModes, random);
-    emit(state.copyWith(
-      status: status,
-      expression: expression,
-      answer: 0,
-    ));
+    emit(state.copyWith(status: status));
   }
 
   void resultWasShown() {
-    emit(state.copyWith(status: GameStatus.idle));
+    final expression = getExpression(numberModes, operationModes, random);
+    emit(state.copyWith(
+      status: GameStatus.idle,
+      expression: expression,
+      answer: 0,
+    ));
   }
 }
