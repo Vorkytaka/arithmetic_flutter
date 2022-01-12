@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:arithmetic/ui/game_screen/bloc/game_bloc.dart';
 import 'package:arithmetic/widget/you_button.dart';
@@ -12,7 +14,10 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GameBloc(modes: context.read<ModeBloc>().state),
+      create: (context) => GameBloc(
+        modes: context.read<ModeBloc>().state,
+        random: Random(),
+      ),
       lazy: false,
       child: Scaffold(
         body: SafeArea(
@@ -49,9 +54,13 @@ class _Header extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '99 + 100',
-            style: Theme.of(context).textTheme.headline3,
+          BlocBuilder<GameBloc, GameState>(
+            builder: (context, state) {
+              return Text(
+                state.expression.toString(),
+                style: Theme.of(context).textTheme.headline3,
+              );
+            }
           ),
           BlocBuilder<GameBloc, GameState>(
             buildWhen: (prev, curr) => prev.answer != curr.answer,
