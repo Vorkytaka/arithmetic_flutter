@@ -1,8 +1,15 @@
+import 'package:arithmetic/data/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 class ModeBloc extends Cubit<ModeState> {
-  ModeBloc() : super(ModeState.init());
+  final Storage storage;
+
+  ModeBloc({
+    required this.storage,
+  }) : super(ModeState.init()) {
+    storage.getModes().onError((_, __) => 0).then((value) => emit(ModeState(modes: value)));
+  }
 
   void numberModeClicked(NumberMode mode) {
     final int x;
@@ -36,6 +43,16 @@ class ModeBloc extends Cubit<ModeState> {
     }
 
     emit(state.copyWith(modes: state.modes ^ x));
+  }
+
+  @override
+  void onChange(Change<ModeState> change) {
+    super.onChange(change);
+    final current = change.currentState.modes;
+    final next = change.nextState.modes;
+    if (current != next) {
+      storage.saveModes(modes: next);
+    }
   }
 }
 

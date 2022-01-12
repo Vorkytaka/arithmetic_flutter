@@ -37,7 +37,7 @@ class Dependencies extends StatelessWidget {
     return RepositoryProvider<Storage>(
       create: (context) => SharedPreferencesStorage(sharedPreferences: sharedPreferences),
       child: BlocProvider(
-        create: (context) => ModeBloc(),
+        create: (context) => ModeBloc(storage: context.read()),
         lazy: false,
         child: child,
       ),

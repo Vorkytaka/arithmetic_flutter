@@ -9,6 +9,7 @@ SharedPreferences? _sharedPreferences;
 SharedPreferences get sharedPreferences => _sharedPreferences!;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   _sharedPreferences = await SharedPreferences.getInstance();
   runApp(const App());
 }
