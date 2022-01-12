@@ -1,10 +1,15 @@
+import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'game_state.dart';
 
 class GameBloc extends Cubit<GameState> {
-  GameBloc() : super(GameState.init());
+  final ModeState modes;
+
+  GameBloc({
+    required this.modes,
+  }) : super(GameState.init());
 
   void numberClicked(int n) {
     final newAnswer = state.answer * 10 + n;

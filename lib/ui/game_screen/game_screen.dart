@@ -1,3 +1,4 @@
+import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:arithmetic/ui/game_screen/bloc/game_bloc.dart';
 import 'package:arithmetic/widget/you_button.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GameBloc(),
+      create: (context) => GameBloc(modes: context.read<ModeBloc>().state),
       lazy: false,
       child: Scaffold(
         body: SafeArea(
