@@ -11,6 +11,7 @@ class YouButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
   final Color? color;
+  final double elevation;
 
   const YouButton({
     Key? key,
@@ -23,6 +24,7 @@ class YouButton extends StatefulWidget {
     this.textStyle,
     this.onPressed,
     this.onLongPress,
+    this.elevation = 3,
   })  : startRadius = width > height ? height / 2 : width / 2,
         super(key: key);
 
@@ -67,6 +69,7 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
         return Material(
           color: widget.color ?? Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(radius?.value ?? 50)),
+          elevation: widget.elevation,
           clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTapDown: widget.onPressed != null ? (_) => animation.forward() : null,

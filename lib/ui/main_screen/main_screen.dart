@@ -16,22 +16,36 @@ class MainScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<ModeBloc, ModeState>(
         buildWhen: (prev, curr) => prev.canStart != curr.canStart,
-        builder: (context, state) => state.canStart ? OpenContainer(
-          transitionDuration: const Duration(milliseconds: 450),
-          closedColor: Theme.of(context).primaryColor,
-          closedElevation: 3,
-          closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-          tappable: true,
-          closedBuilder: (context, _) => SizedBox(
-            width: 80,
-            height: 80,
-            child: IconTheme(
-              data: Theme.of(context).primaryIconTheme,
-              child: const Icon(Icons.arrow_forward_ios),
-            ),
+        builder: (context, state) => AnimatedSwitcher(
+          transitionBuilder: (child, a) => ScaleTransition(
+            scale: a,
+            child: child,
           ),
-          openBuilder: (context, _) => const GameScreen(),
-        ) : const SizedBox.shrink(),
+          duration: const Duration(milliseconds: 100),
+          switchInCurve: Curves.easeIn,
+          switchOutCurve: Curves.easeOut,
+          child: state.canStart
+              ? OpenContainer(
+                  transitionDuration: const Duration(milliseconds: 450),
+                  closedColor: Theme.of(context).colorScheme.secondary,
+                  closedElevation: 3,
+                  closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+                  tappable: true,
+                  closedBuilder: (context, _) => SizedBox(
+                    width: 66,
+                    height: 66,
+                    child: IconTheme(
+                      data: Theme.of(context).primaryIconTheme,
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  openBuilder: (context, _) => const GameScreen(),
+                )
+              : const SizedBox.shrink(),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -98,6 +112,7 @@ class _ButtonWithTitle extends StatelessWidget {
   final Widget buttonChild;
   final Color? color;
   final VoidCallback? onPressed;
+  final double elevation;
 
   const _ButtonWithTitle({
     Key? key,
@@ -105,6 +120,7 @@ class _ButtonWithTitle extends StatelessWidget {
     required this.title,
     this.color,
     this.onPressed,
+    this.elevation = 0,
   }) : super(key: key);
 
   @override
@@ -117,6 +133,7 @@ class _ButtonWithTitle extends StatelessWidget {
           child: buttonChild,
           color: color,
           onPressed: onPressed,
+          elevation: elevation,
         ),
         const SizedBox(height: 8),
         Text(
@@ -151,8 +168,9 @@ class _Button extends StatelessWidget {
       builder: (context, state) => _ButtonWithTitle(
         title: title,
         buttonChild: child,
-        color: selector(state) ? Theme.of(context).primaryColor : Theme.of(context).errorColor,
+        color: selector(state) ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.primaryVariant,
         onPressed: onPressed,
+        elevation: selector(state) ? 5 : 0,
       ),
     );
   }

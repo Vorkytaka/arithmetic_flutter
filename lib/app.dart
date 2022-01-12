@@ -19,6 +19,28 @@ class App extends StatelessWidget {
           MainScreen.pathKey: (context) => const MainScreen(),
           GameScreen.pathKey: (context) => const GameScreen(),
         },
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.green.shade600,
+          scaffoldBackgroundColor: Colors.grey.shade900,
+          primaryIconTheme: const IconThemeData(color: Colors.white),
+          errorColor: Colors.red.shade900,
+          colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            background: Colors.green.shade600,
+            onBackground: Colors.white,
+            error: Colors.red.shade900,
+            onError: Colors.white,
+            primary: Colors.green.shade600,
+            primaryVariant: Colors.grey.shade700,
+            onPrimary: Colors.white,
+            secondary: Colors.cyan.shade700,
+            secondaryVariant: Colors.grey.shade700,
+            onSecondary: Colors.white,
+            surface: Colors.grey.shade900,
+            onSurface: Colors.white,
+          ),
+        ),
       ),
     );
   }
