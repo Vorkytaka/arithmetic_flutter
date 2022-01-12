@@ -46,20 +46,6 @@ class GameBloc extends Cubit<GameState> {
           ),
         );
 
-  void numberClicked(int n) {
-    final newAnswer = state.answer * 10 + n;
-    if (newAnswer >= 1000000) return;
-    emit(state.copyWith(answer: newAnswer));
-  }
-
-  void deleteClicked() {
-    emit(state.copyWith(answer: state.answer ~/ 10));
-  }
-
-  void deleteLongClicked() {
-    emit(state.copyWith(answer: 0));
-  }
-
   static Expression getExpression(
     List<NumberMode> numberModes,
     List<OperationMode> operationModes,
@@ -84,5 +70,29 @@ class GameBloc extends Cubit<GameState> {
       case NumberMode.hundreds:
         return random.nextInt(900) + 100;
     }
+  }
+
+  void numberClicked(int n) {
+    final newAnswer = state.answer * 10 + n;
+    if (newAnswer >= 1000000) return;
+    emit(state.copyWith(answer: newAnswer));
+  }
+
+  void deleteClicked() {
+    emit(state.copyWith(answer: state.answer ~/ 10));
+  }
+
+  void deleteLongClicked() {
+    emit(state.copyWith(answer: 0));
+  }
+
+  void equalsPressed() {
+    final status = state.answer == state.expression.answer ? GameStatus.correct : GameStatus.wrong;
+    final expression = getExpression(numberModes, operationModes, random);
+    emit(state.copyWith(
+      status: status,
+      expression: expression,
+      answer: 0,
+    ));
   }
 }

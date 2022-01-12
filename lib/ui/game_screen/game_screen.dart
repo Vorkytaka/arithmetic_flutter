@@ -19,22 +19,42 @@ class GameScreen extends StatelessWidget {
         random: Random(),
       ),
       lazy: false,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              Expanded(
-                flex: 1,
-                child: _Header(),
-              ),
-              Expanded(
-                flex: 2,
-                child: _Keyboard(),
-              ),
-            ],
+      child: BlocListener<GameBloc, GameState>(
+        listener: (context, state) {
+          // todo: Анимация
+          final String? text;
+          switch (state.status) {
+            case GameStatus.correct:
+              text = 'Правильно!';
+              break;
+            case GameStatus.wrong:
+              text = 'Ошибся, дуралей';
+              break;
+            case GameStatus.idle:
+              text = null;
+              break;
+          }
+          if (text != null) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+          }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: const [
+                Expanded(
+                  flex: 1,
+                  child: _Header(),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: _Keyboard(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -54,14 +74,12 @@ class _Header extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BlocBuilder<GameBloc, GameState>(
-            builder: (context, state) {
-              return Text(
-                state.expression.toString(),
-                style: Theme.of(context).textTheme.headline3,
-              );
-            }
-          ),
+          BlocBuilder<GameBloc, GameState>(builder: (context, state) {
+            return Text(
+              state.expression.toString(),
+              style: Theme.of(context).textTheme.headline3,
+            );
+          }),
           BlocBuilder<GameBloc, GameState>(
             buildWhen: (prev, curr) => prev.answer != curr.answer,
             builder: (context, state) => FittedBox(
@@ -153,7 +171,7 @@ class _Keyboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             YouButton(
-              child: Icon(Icons.backspace),
+              child: const Icon(Icons.backspace),
               onPressed: () => context.read<GameBloc>().deleteClicked(),
               onLongPress: () => context.read<GameBloc>().deleteLongClicked(),
             ),
@@ -161,7 +179,10 @@ class _Keyboard extends StatelessWidget {
               child: const Text('0'),
               onPressed: () => context.read<GameBloc>().numberClicked(0),
             ),
-            YouButton(child: Text('=')),
+            YouButton(
+              child: const Text('='),
+              onPressed: () => context.read<GameBloc>().equalsPressed(),
+            ),
           ],
         ),
       ],
