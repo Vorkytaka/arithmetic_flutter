@@ -35,7 +35,9 @@ class GameScreen extends StatelessWidget {
               break;
           }
           if (text != null) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+            context.read<GameBloc>().resultWasShown();
           }
         },
         child: Scaffold(

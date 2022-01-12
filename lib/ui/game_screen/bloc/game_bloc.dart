@@ -95,4 +95,8 @@ class GameBloc extends Cubit<GameState> {
       answer: 0,
     ));
   }
+
+  void resultWasShown() {
+    emit(state.copyWith(status: GameStatus.idle));
+  }
 }
