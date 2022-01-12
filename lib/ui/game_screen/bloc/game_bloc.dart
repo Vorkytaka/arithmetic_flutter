@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+part 'game_state.dart';
+
 class GameBloc extends Cubit<GameState> {
   GameBloc() : super(GameState.init());
 
@@ -17,20 +19,4 @@ class GameBloc extends Cubit<GameState> {
   void deleteLongClicked() {
     emit(state.copyWith(answer: 0));
   }
-}
-
-@immutable
-class GameState {
-  final int answer;
-
-  const GameState({
-    required this.answer,
-  });
-
-  factory GameState.init() => const GameState(answer: 0);
-
-  GameState copyWith({
-    int? answer,
-  }) =>
-      GameState(answer: answer ?? this.answer);
 }
