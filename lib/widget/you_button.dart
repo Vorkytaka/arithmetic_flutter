@@ -23,7 +23,7 @@ class YouButton extends StatefulWidget {
     this.textStyle,
     this.onPressed,
     this.onLongPress,
-  })  : startRadius = width > height ? height : width,
+  })  : startRadius = width > height ? height / 2 : width / 2,
         super(key: key);
 
   @override
@@ -47,7 +47,10 @@ class _YouButtonState extends State<YouButton> with SingleTickerProviderStateMix
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    radius ??= Tween<double>(begin: widget.startRadius, end: widget.startRadius / 5).animate(animation);
+    radius ??= Tween<double>(begin: widget.startRadius, end: widget.startRadius / 2).animate(CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOut,
+    ));
   }
 
   @override
