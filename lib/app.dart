@@ -1,4 +1,6 @@
+import 'package:arithmetic/data/storage.dart';
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
+import 'package:arithmetic/main.dart';
 import 'package:arithmetic/ui/game_screen/game_screen.dart';
 import 'package:arithmetic/ui/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +34,13 @@ class Dependencies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ModeBloc(),
-      lazy: false,
-      child: child,
+    return RepositoryProvider<Storage>(
+      create: (context) => SharedPreferencesStorage(sharedPreferences: sharedPreferences),
+      child: BlocProvider(
+        create: (context) => ModeBloc(),
+        lazy: false,
+        child: child,
+      ),
     );
   }
 }
