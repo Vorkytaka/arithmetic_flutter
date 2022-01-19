@@ -70,7 +70,7 @@ class _Header extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
@@ -125,13 +125,15 @@ class _Header extends StatelessWidget {
                 builder: (context, state) => Container(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                   color: state.status == GameStatus.correct
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).errorColor,
+                      ? Theme.of(context).colorScheme.secondaryVariant
+                      : Theme.of(context).colorScheme.error,
                   alignment: Alignment.center,
                   child: Text(
                     '${state.expression.answer}',
-                    style:
-                        Theme.of(context).textTheme.headline3?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                        color: state.status == GameStatus.correct
+                            ? Theme.of(context).colorScheme.onSecondary
+                            : Theme.of(context).colorScheme.onError),
                   ),
                 ),
               ),
@@ -149,7 +151,7 @@ class _Keyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.surface,
+      color: Theme.of(context).colorScheme.background,
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: BlocBuilder<GameBloc, GameState>(
         buildWhen: (prev, curr) => prev.status != curr.status,
@@ -238,6 +240,7 @@ class _Keyboard extends StatelessWidget {
                     child: const Text('='),
                     color: Theme.of(context).colorScheme.secondary,
                     onPressed: () => context.read<GameBloc>().equalsPressed(),
+                    textStyle: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
                   ),
                 ],
               ),

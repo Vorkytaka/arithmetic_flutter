@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
                     width: 66,
                     height: 66,
                     child: IconTheme(
-                      data: Theme.of(context).primaryIconTheme,
+                      data: IconThemeData(color: Theme.of(context).colorScheme.onSecondary),
                       child: const Icon(
                         Icons.arrow_forward_ios,
                         size: 20,
@@ -134,11 +134,14 @@ class _ButtonWithTitle extends StatelessWidget {
           color: color,
           onPressed: onPressed,
           elevation: elevation,
+          textStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         ),
         const SizedBox(height: 8),
         Text(
           title,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
         ),
       ],
     );
@@ -168,7 +171,7 @@ class _Button extends StatelessWidget {
       builder: (context, state) => _ButtonWithTitle(
         title: title,
         buttonChild: child,
-        color: selector(state) ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.primaryVariant,
+        color: selector(state) ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
         onPressed: onPressed,
         elevation: selector(state) ? 5 : 0,
       ),

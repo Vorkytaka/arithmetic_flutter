@@ -1,6 +1,7 @@
 import 'package:arithmetic/data/storage.dart';
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:arithmetic/main.dart';
+import 'package:arithmetic/theme.dart';
 import 'package:arithmetic/ui/game_screen/game_screen.dart';
 import 'package:arithmetic/ui/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,27 +20,10 @@ class App extends StatelessWidget {
           MainScreen.pathKey: (context) => const MainScreen(),
           GameScreen.pathKey: (context) => const GameScreen(),
         },
-        theme: ThemeData(
+        theme: getTheme(
           brightness: Brightness.dark,
-          primaryColor: Colors.green.shade600,
-          scaffoldBackgroundColor: Colors.grey.shade900,
-          primaryIconTheme: const IconThemeData(color: Colors.white),
-          errorColor: Colors.red.shade900,
-          colorScheme: ColorScheme(
-            brightness: Brightness.dark,
-            background: Colors.green.shade600,
-            onBackground: Colors.white,
-            error: Colors.red.shade900,
-            onError: Colors.white,
-            primary: Colors.green.shade600,
-            primaryVariant: Colors.grey.shade700,
-            onPrimary: Colors.white,
-            secondary: Colors.cyan.shade700,
-            secondaryVariant: Colors.grey.shade700,
-            onSecondary: Colors.white,
-            surface: Colors.grey.shade900,
-            onSurface: Colors.white,
-          ),
+          primary: Colors.green,
+          secondary: const Color(0xffaf4cac),
         ),
       ),
     );
