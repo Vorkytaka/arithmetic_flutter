@@ -1,9 +1,9 @@
-import 'package:arithmetic/data/storage.dart';
+import 'package:arithmetic/data/mode_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 class ModeBloc extends Cubit<ModeState> {
-  final Storage storage;
+  final ModeStorage storage;
 
   ModeBloc({
     required this.storage,

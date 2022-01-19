@@ -17,6 +17,7 @@ class GameScreen extends StatelessWidget {
       create: (context) => GameBloc(
         modes: context.read<ModeBloc>().state,
         random: Random(),
+        expressionStorage: context.read(),
       ),
       lazy: false,
       child: BlocListener<GameBloc, GameState>(

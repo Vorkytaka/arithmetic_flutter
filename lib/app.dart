@@ -1,4 +1,5 @@
-import 'package:arithmetic/data/storage.dart';
+import 'package:arithmetic/data/expression_storage.dart';
+import 'package:arithmetic/data/mode_storage.dart';
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:arithmetic/main.dart';
 import 'package:arithmetic/theme.dart';
@@ -40,8 +41,15 @@ class Dependencies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<Storage>(
-      create: (context) => SharedPreferencesStorage(sharedPreferences: sharedPreferences),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<ModeStorage>(
+          create: (context) => SharedPreferencesModeStorage(sharedPreferences: sharedPreferences),
+        ),
+        RepositoryProvider<ExpressionStorage>(
+          create: (context) => SqliteExpressionStorage(),
+        ),
+      ],
       child: BlocProvider(
         create: (context) => ModeBloc(storage: context.read()),
         lazy: false,

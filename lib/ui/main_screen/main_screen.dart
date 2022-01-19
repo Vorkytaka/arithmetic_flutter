@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
 import 'package:arithmetic/ui/game_screen/game_screen.dart';
+import 'package:arithmetic/ui/history_screen/history_screen.dart';
 import 'package:arithmetic/widget/you_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,37 +15,16 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: BlocBuilder<ModeBloc, ModeState>(
-        buildWhen: (prev, curr) => prev.canStart != curr.canStart,
-        builder: (context, state) => AnimatedSwitcher(
-          transitionBuilder: (child, a) => ScaleTransition(
-            scale: a,
-            child: child,
-          ),
-          duration: const Duration(milliseconds: 100),
-          switchInCurve: Curves.easeIn,
-          switchOutCurve: Curves.easeOut,
-          child: state.canStart
-              ? OpenContainer(
-                  transitionDuration: const Duration(milliseconds: 450),
-                  closedColor: Theme.of(context).colorScheme.secondary,
-                  closedElevation: 3,
-                  closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-                  tappable: true,
-                  closedBuilder: (context, _) => SizedBox(
-                    width: 66,
-                    height: 66,
-                    child: IconTheme(
-                      data: IconThemeData(color: Theme.of(context).colorScheme.onSecondary),
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  openBuilder: (context, _) => const GameScreen(),
-                )
-              : const SizedBox.shrink(),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _HistoryButton(),
+            _StartButton(),
+          ],
         ),
       ),
       body: SafeArea(
@@ -174,6 +154,70 @@ class _Button extends StatelessWidget {
         color: selector(state) ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
         onPressed: onPressed,
         elevation: selector(state) ? 5 : 0,
+      ),
+    );
+  }
+}
+
+class _HistoryButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return OpenContainer(
+      transitionDuration: const Duration(milliseconds: 450),
+      closedColor: Theme.of(context).colorScheme.secondaryVariant,
+      closedElevation: 3,
+      closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+      tappable: true,
+      closedBuilder: (context, _) => SizedBox(
+        width: 66,
+        height: 66,
+        child: IconTheme(
+          data: IconThemeData(color: Theme.of(context).colorScheme.onSecondary),
+          child: const Icon(
+            Icons.list,
+            size: 20,
+          ),
+        ),
+      ),
+      openBuilder: (context, _) => const HistoryScreen(),
+    );
+  }
+}
+
+class _StartButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ModeBloc, ModeState>(
+      buildWhen: (prev, curr) => prev.canStart != curr.canStart,
+      builder: (context, state) => AnimatedSwitcher(
+        transitionBuilder: (child, a) => ScaleTransition(
+          scale: a,
+          child: child,
+        ),
+        duration: const Duration(milliseconds: 100),
+        switchInCurve: Curves.easeIn,
+        switchOutCurve: Curves.easeOut,
+        child: state.canStart
+            ? OpenContainer(
+                transitionDuration: const Duration(milliseconds: 450),
+                closedColor: Theme.of(context).colorScheme.secondary,
+                closedElevation: 3,
+                closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+                tappable: true,
+                closedBuilder: (context, _) => SizedBox(
+                  width: 66,
+                  height: 66,
+                  child: IconTheme(
+                    data: IconThemeData(color: Theme.of(context).colorScheme.onSecondary),
+                    child: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                openBuilder: (context, _) => const GameScreen(),
+              )
+            : const SizedBox.shrink(),
       ),
     );
   }

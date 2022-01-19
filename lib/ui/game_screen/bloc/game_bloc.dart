@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:arithmetic/data/expression_storage.dart';
 import 'package:arithmetic/domain/mode/mode_bloc.dart';
+import 'package:arithmetic/entity/expression.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -15,10 +17,13 @@ class GameBloc extends Cubit<GameState> {
   final List<NumberMode> numberModes;
   final List<OperationMode> operationModes;
 
+  final ExpressionStorage expressionStorage;
+
   // todo: Обдумать создание первого выражения
   GameBloc({
     required this.modes,
     required this.random,
+    required this.expressionStorage,
   })  : numberModes = [
           if (modes.isOnesEnable) NumberMode.ones,
           if (modes.isTensEnable) NumberMode.tens,
@@ -94,6 +99,7 @@ class GameBloc extends Cubit<GameState> {
   void equalsPressed() {
     final status = state.answer == state.expression.answer ? GameStatus.correct : GameStatus.wrong;
     emit(state.copyWith(status: status));
+    expressionStorage.saveExpression(expression: state.expression, answer: state.answer);
   }
 
   void resultWasShown() {
