@@ -125,14 +125,14 @@ class _Header extends StatelessWidget {
                 builder: (context, state) => Container(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                   color: state.status == GameStatus.correct
-                      ? Theme.of(context).colorScheme.secondaryVariant
+                      ? Theme.of(context).colorScheme.primaryVariant
                       : Theme.of(context).colorScheme.error,
                   alignment: Alignment.center,
                   child: Text(
                     '${state.expression.answer}',
                     style: Theme.of(context).textTheme.headline3?.copyWith(
                         color: state.status == GameStatus.correct
-                            ? Theme.of(context).colorScheme.onSecondary
+                            ? Theme.of(context).colorScheme.onPrimary
                             : Theme.of(context).colorScheme.onError),
                   ),
                 ),

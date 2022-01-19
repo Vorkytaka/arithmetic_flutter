@@ -61,9 +61,9 @@ ColorScheme getColorScheme({
 }) {
   return ColorScheme(
     primary: primary,
-    primaryVariant: primary,
+    primaryVariant: correct,
     secondary: secondary,
-    secondaryVariant: correct,
+    secondaryVariant: secondary,
     surface: secondaryBackground,
     background: background,
     error: error,
